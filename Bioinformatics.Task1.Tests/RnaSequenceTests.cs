@@ -56,6 +56,28 @@ namespace Bioinformatics.Task1.Tests
 			Assert.AreEqual(1, rnaSequence.ReadingFrame);
 		}
 
+		[Test]
+		public void DnaStringWithoutTggTest()
+		{
+			var dnaString = new DnaString(
+				"TCATATTCTACATAGGGGTCGCGCACCATGGCGTCACATCATCCTAC" +
+				"GGCAACGTGAGCCTCACAAGTTAAGTATCACATGTCCTTGTAGTGGTTACTTC" +
+				"TTTATTTACATGGCGTTCTTGCCAGTCTTTTGAATGGCACAGACGGAGTTCGA" +
+				"CTGTAGACTGCGTCGTAAAACCGACATTCTTGATGCCGTTTTTTATG",
+				true,
+				3);
+
+			var rnaSequence = MaxRnaSequenceFinder.GetMaxRnaSequence(dnaString);
+
+			Assert.AreEqual(
+				"atgtaccgcaagaacggtcagaaaacttaccgtgtctgcctcaagctgacatctgacgcagcattttggctgtaa",
+				string.Concat(rnaSequence.Values).ToLower());
+			
+			Assert.AreEqual(true, rnaSequence.Reversed);
+			Assert.AreEqual(new DnaStringRange(105 , 179), rnaSequence.DnaStringRange);
+			Assert.AreEqual(3, rnaSequence.ReadingFrame);
+		}
+
 		private static IEnumerable<TestCaseDto> GetTestCaseObjects()
 		{
 			yield return new TestCaseDto(
