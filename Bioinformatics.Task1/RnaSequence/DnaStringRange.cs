@@ -1,6 +1,6 @@
 namespace Bioinformatics.Task1
 {
-	internal readonly struct DnaStringRange
+	public readonly struct DnaStringRange
 	{
 		public DnaStringRange(ushort firstCharIndex, ushort lastCharIndex)
 		{

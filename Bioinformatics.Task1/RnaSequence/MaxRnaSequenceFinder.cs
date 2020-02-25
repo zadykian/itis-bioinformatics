@@ -16,8 +16,8 @@ namespace Bioinformatics.Task1
 				.ToArray();
 
 			var currentBuffer = new List<string>();
-			ushort currentStartIndex = 1;
-			ushort currentEndIndex = 0;
+			ushort currentStartIndex = 0;
+			ushort currentEndIndex = 2;
 			
 			var rnaSequenceIsFound = false;
 
@@ -25,6 +25,9 @@ namespace Bioinformatics.Task1
 			{
 				if (!rnaSequenceIsFound)
 				{
+					currentStartIndex += 3;
+					currentEndIndex += 3;
+					
 					if (currentToken == "ATG")
 					{
 						rnaSequenceIsFound = true;
@@ -32,7 +35,6 @@ namespace Bioinformatics.Task1
 						currentBuffer.Add(currentToken);
 					}
 
-					currentStartIndex += 3;
 					continue;
 				}
 
@@ -41,6 +43,25 @@ namespace Bioinformatics.Task1
 					currentBuffer.Clear();
 					rnaSequenceIsFound = false;
 				}
+				
+				if (currentToken == "TAA" || currentToken == "TAG" || currentToken == "TGA")
+				{
+					currentEndIndex += 3;
+					currentBuffer.Add(currentToken);
+					
+					if (maxBuffer.Count < currentBuffer.Count)
+					{
+						endIndex = currentEndIndex;
+						startIndex = currentStartIndex;
+						maxBuffer = new List<string>(currentBuffer);
+					}
+			
+					currentBuffer.Clear();
+					break;
+				}
+				
+				currentEndIndex += 3;
+				currentBuffer.Add(currentToken);
 			}
 			
 			
