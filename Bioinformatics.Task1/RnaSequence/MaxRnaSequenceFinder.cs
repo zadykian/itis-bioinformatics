@@ -11,8 +11,7 @@ namespace Bioinformatics.Task1
 			ushort startIndex = 0;
 			ushort endIndex = 0;
 
-			var stringValue = dnaString.Value;
-			var currentTokens = stringValue
+			var currentTokens = dnaString.Value
 				.Split(3)
 				.ToArray();
 

@@ -13,14 +13,38 @@ namespace Bioinformatics.Task1
 				.Select(i => str.Substring(i * chunkSize, chunkSize));
 		}
 
-		public static string Reverse(this string stringValue)
+		public static RnaSequence GetMaxRnaSequence(this string randomDnaString)
+		{
+			return randomDnaString
+				.GetDnaStrings()
+				.Select(MaxRnaSequenceFinder.GetMaxRnaSequence)
+				.OrderByDescending(rnaSequence => rnaSequence.Values.Length)
+				.First();
+		}
+
+		private static DnaString[] GetDnaStrings(this string randomDnaString)
+		{
+			return new[]
+			{
+				new DnaString(randomDnaString, false),
+				new DnaString(randomDnaString.Reverse(), true),
+
+				new DnaString(randomDnaString.FirstCharToEnd(), false),
+				new DnaString(randomDnaString.FirstCharToEnd().Reverse(), true),
+
+				new DnaString(randomDnaString.FirstCharToEnd().FirstCharToEnd(), false),
+				new DnaString(randomDnaString.FirstCharToEnd().FirstCharToEnd().Reverse(), true)
+			};
+		}
+		
+		private static string Reverse(this string stringValue)
 		{
 			var chars = stringValue.ToCharArray();
 			Array.Reverse(chars);
 			return new string(chars);
 		}
 
-		public static string FirstCharToEnd(this string stringValue)
+		private static string FirstCharToEnd(this string stringValue)
 		{
 			var firstChar = stringValue[0];
 			return stringValue.Substring(1, stringValue.Length - 1) + firstChar;

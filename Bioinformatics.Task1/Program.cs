@@ -13,22 +13,7 @@ namespace Bioinformatics.Task1
 			
 			Console.WriteLine($"Исходная строка: {randomDnaString}");
 
-			var strings = new[]
-			{
-				new DnaString(randomDnaString, false),
-				new DnaString(randomDnaString.Reverse(), true),
-
-				new DnaString(randomDnaString.FirstCharToEnd(), false),
-				new DnaString(randomDnaString.FirstCharToEnd().Reverse(), true),
-
-				new DnaString(randomDnaString.FirstCharToEnd().FirstCharToEnd(), false),
-				new DnaString(randomDnaString.FirstCharToEnd().FirstCharToEnd().Reverse(), true)
-			};
-
-			var maxRnaSequence = strings
-				.Select(MaxRnaSequenceFinder.GetMaxRnaSequence)
-				.OrderByDescending(rnaSequence => rnaSequence.Values.Length)
-				.First();
+			var maxRnaSequence = randomDnaString.GetMaxRnaSequence();
 			
 			if (maxRnaSequence.Values.Length == 0)
 			{

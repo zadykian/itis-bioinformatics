@@ -7,7 +7,7 @@ namespace Bioinformatics.Task1
 		public static string Translate(this RnaSequence rnaSequence)
 		{
 			var tokens = rnaSequence.Values.Select(Translate);
-			return string.Join(' ', rnaSequence);
+			return string.Join(' ', tokens);
 		}
 		
 		private static string Translate(string stringValue)
