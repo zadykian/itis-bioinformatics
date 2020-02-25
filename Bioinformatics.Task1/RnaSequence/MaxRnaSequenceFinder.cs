@@ -72,8 +72,8 @@ namespace Bioinformatics.Task1
 				Reset();
 			}
 
-			var dnaStringRange = new DnaStringRange(startIndex, endIndex) + dnaString.Bias;
-			return new RnaSequence(maxBuffer.ToArray(), dnaString.Reversed, dnaStringRange);
+			var dnaStringRange = new DnaStringRange(startIndex, endIndex) + (byte) (dnaString.ReadingFrame - 1);
+			return new RnaSequence(maxBuffer.ToArray(), dnaString.Reversed, dnaString.ReadingFrame, dnaStringRange);
 		}
 	}
 }

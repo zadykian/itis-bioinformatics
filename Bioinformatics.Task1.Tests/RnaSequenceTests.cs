@@ -16,6 +16,7 @@ namespace Bioinformatics.Task1.Tests
 			
 			Assert.AreEqual(testCaseDto.Reversed, maxRnaSequence.Reversed);
 			Assert.AreEqual(testCaseDto.DnaStringRange, maxRnaSequence.DnaStringRange);
+			Assert.AreEqual(testCaseDto.ReadingFrame, maxRnaSequence.ReadingFrame);
 		}
 
 		[Test]
@@ -24,7 +25,7 @@ namespace Bioinformatics.Task1.Tests
 			var dnaString = new DnaString(
 				"GTTATTATGATGATCGGAGATTTGCCCTGTTCGTTATTGATAACGGGTTCACGGACCGAATGCGCCCTCGGCTCAGTACGAACGTTATAACGCGCACCGG", 
 				false, 
-				2);
+				3);
 
 			var rnaSequence = MaxRnaSequenceFinder.GetMaxRnaSequence(dnaString);
 
@@ -41,7 +42,8 @@ namespace Bioinformatics.Task1.Tests
 		{
 			var dnaString = new DnaString(
 				string.Concat("ATG", "ATT", "TGG",  "ATC", "GGG", "ATG", "GTA" + "TGC" + "TAG"),
-				false);
+				false,
+				1);
 
 			var rnaSequence = MaxRnaSequenceFinder.GetMaxRnaSequence(dnaString);
 
@@ -51,6 +53,7 @@ namespace Bioinformatics.Task1.Tests
 			
 			Assert.AreEqual(false, rnaSequence.Reversed);
 			Assert.AreEqual(new DnaStringRange(16 , 27), rnaSequence.DnaStringRange);
+			Assert.AreEqual(1, rnaSequence.ReadingFrame);
 		}
 
 		private static IEnumerable<TestCaseDto> GetTestCaseObjects()
@@ -59,7 +62,8 @@ namespace Bioinformatics.Task1.Tests
 				"GGGTTATTATGATGATCGGAGATTTGCCCTGTTCGTTATTGATAACGGGTTCACGGACCGAATGCGCCCTCGGCTCAGTACGAACGTTATAACGCGCACC",
 				"atgatgatcggagatttgccctgttcgttattgataacgggttcacggaccgaatgcgccctcggctcagtacgaacgttataa",
 				false,
-				new DnaStringRange(9, 92));
+				new DnaStringRange(9, 92),
+				3);
 			
 			yield return new TestCaseDto(
 				"GCTCTTCGCGAAAGGAGCGAACCACATGCCTGCGGAGGTCGAACACACCGACGCCTCTGTCCAGGACATCTTGGACCCTATTGGACTGTGACTTCGGCCTAA" +
@@ -67,7 +71,16 @@ namespace Bioinformatics.Task1.Tests
 				"CGTAATTAAATCGCGAATGGGTGCTCGATCGTGCGCAAGTTTTTAAGATCCTGCGCGCCGTCTGAGAATGTCCTTTCATTGTGCAAGTGACTGC",
 				"atgccttcacaaaacgaggttgaagtcacgttccgcgtaattaaatcgcgaatgggtgctcgatcgtgcgcaagtttttaa",
 				false,
-				new DnaStringRange(172, 252));
+				new DnaStringRange(172, 252),
+				1);
+			
+			yield return new TestCaseDto(
+				"CTGTATTTTTTGCCGTAGTTCTTACAGCCAAAATGCTGCGTCAGATGTCAGCTTGAGGCAGACACGGTAAGTTTTCTGACCGTTCTTGCGGTACATTTA" +
+				"TTTCTTCATTGGTGATGTTCCTGTACACTATGAATTGAACACTCCGAGTGCAACGGCATCCTACTACACTGCGGTACCACGCGCTGGGGATACATCTTATA",
+				"atgtaccgcaagaacggtcagaaaacttaccgtgtctgcctcaagctgacatctgacgcagcattttggctgtaa",
+				true,
+				new DnaStringRange(105, 179), 
+				3);
 		}
 	}
 }

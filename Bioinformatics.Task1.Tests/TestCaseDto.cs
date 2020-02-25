@@ -5,12 +5,13 @@ namespace Bioinformatics.Task1.Tests
 		public TestCaseDto(string dnaString, 
 			string maxRnaSequence, 
 			bool reversed, 
-			DnaStringRange dnaStringRange)
+			DnaStringRange dnaStringRange, byte readingFrame)
 		{
 			DnaString = dnaString;
 			MaxRnaSequence = maxRnaSequence;
 			Reversed = reversed;
 			DnaStringRange = dnaStringRange;
+			ReadingFrame = readingFrame;
 		}
 
 		public string DnaString { get; }
@@ -20,5 +21,7 @@ namespace Bioinformatics.Task1.Tests
 		public bool Reversed { get; }
 
 		public DnaStringRange DnaStringRange { get; }
+		
+		public byte ReadingFrame { get; }
 	}
 }

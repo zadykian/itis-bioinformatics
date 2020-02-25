@@ -26,14 +26,14 @@ namespace Bioinformatics.Task1
 		{
 			return new[]
 			{
-				new DnaString(randomDnaString, false),
-				new DnaString(randomDnaString.Reverse(), true),
+				new DnaString(randomDnaString, false, 1),
+				new DnaString(randomDnaString.Reverse(), true, 1),
 
-				new DnaString(randomDnaString.FirstCharToEnd(), false, 1),
-				new DnaString(randomDnaString.FirstCharToEnd().Reverse(), true, 1),
+				new DnaString(randomDnaString.FirstCharToEnd(), false, 2),
+				new DnaString(randomDnaString.FirstCharToEnd().Reverse(), true, 2),
 
-				new DnaString(randomDnaString.FirstCharToEnd().FirstCharToEnd(), false, 2),
-				new DnaString(randomDnaString.FirstCharToEnd().FirstCharToEnd().Reverse(), true, 2)
+				new DnaString(randomDnaString.FirstCharToEnd().FirstCharToEnd(), false, 3),
+				new DnaString(randomDnaString.FirstCharToEnd().FirstCharToEnd().Reverse(), true, 3)
 			};
 		}
 		

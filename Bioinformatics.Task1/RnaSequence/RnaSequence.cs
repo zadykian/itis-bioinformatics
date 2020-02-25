@@ -4,16 +4,20 @@ namespace Bioinformatics.Task1
 	{
 		public RnaSequence(string[] values, 
 			bool reversed, 
+			byte readingFrame,
 			DnaStringRange dnaStringRange)
 		{
 			Values = values;
 			Reversed = reversed;
+			ReadingFrame = readingFrame;
 			DnaStringRange = dnaStringRange;
 		}
 
 		public string[] Values { get; }
 		
 		public bool Reversed { get; }
+		
+		public byte ReadingFrame { get; }
 		
 		public DnaStringRange DnaStringRange { get; }
 

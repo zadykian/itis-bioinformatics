@@ -15,7 +15,7 @@ namespace Bioinformatics.Task1
 
 			var maxRnaSequence = randomDnaString.GetMaxRnaSequence();
 			
-			if (maxRnaSequence.Values.Length == 0)
+			if (maxRnaSequence.Values.Length < 10)
 			{
 				Console.WriteLine("ORF не найдена.");
 			}
@@ -25,8 +25,9 @@ namespace Bioinformatics.Task1
 				Console.WriteLine(maxRnaSequence.Translate());
 
 				var isReversedString = maxRnaSequence.Reversed ? "обратной" : "прямой";
-				Console.WriteLine($"ORF была найдена на {isReversedString} цепи.");
-				Console.WriteLine($"Диапазон порядковых номеров: {maxRnaSequence.DnaStringRange}");
+				Console.WriteLine($"ORF была найдена на {isReversedString} цепи;");
+				Console.WriteLine($"Рамка считывания: {maxRnaSequence.ReadingFrame};");
+				Console.WriteLine($"Диапазон порядковых номеров: {maxRnaSequence.DnaStringRange}.");
 			}
 
 			Console.ReadKey();
