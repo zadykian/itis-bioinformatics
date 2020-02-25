@@ -4,6 +4,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bioinformatics.Task1", "Bio
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bioinformatics.Task1.Tests", "Bioinformatics.Task1.Tests\Bioinformatics.Task1.Tests.csproj", "{C7D136B5-CFF4-4B0B-986E-C7C6E6610E95}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Task1", "Task1", "{E30D37AA-9D67-40CE-AE30-458E557CC0F5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Task2", "Task2", "{DA1FCF45-DA3C-4F4A-B01A-69CB7C790A43}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bioinformatics.Task2", "Bioinformatics.Task2\Bioinformatics.Task2.csproj", "{CA2C72F7-BC73-47DE-B236-15880A006E5E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +24,14 @@ Global
 		{C7D136B5-CFF4-4B0B-986E-C7C6E6610E95}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C7D136B5-CFF4-4B0B-986E-C7C6E6610E95}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C7D136B5-CFF4-4B0B-986E-C7C6E6610E95}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CA2C72F7-BC73-47DE-B236-15880A006E5E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CA2C72F7-BC73-47DE-B236-15880A006E5E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CA2C72F7-BC73-47DE-B236-15880A006E5E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CA2C72F7-BC73-47DE-B236-15880A006E5E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{9AEE2C4C-5F4B-4814-AB50-EC9A93E064F5} = {E30D37AA-9D67-40CE-AE30-458E557CC0F5}
+		{C7D136B5-CFF4-4B0B-986E-C7C6E6610E95} = {E30D37AA-9D67-40CE-AE30-458E557CC0F5}
+		{CA2C72F7-BC73-47DE-B236-15880A006E5E} = {DA1FCF45-DA3C-4F4A-B01A-69CB7C790A43}
 	EndGlobalSection
 EndGlobal
