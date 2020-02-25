@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Bioinformatics.Task1
 {
-	internal static class StringExtensions
+	internal static class InternalStringExtensions
 	{
 		public static IEnumerable<string> Split(this string str, int chunkSize)
 		{
@@ -13,16 +13,7 @@ namespace Bioinformatics.Task1
 				.Select(i => str.Substring(i * chunkSize, chunkSize));
 		}
 
-		public static RnaSequence GetMaxRnaSequence(this string randomDnaString)
-		{
-			return randomDnaString
-				.GetDnaStrings()
-				.Select(MaxRnaSequenceFinder.GetMaxRnaSequence)
-				.OrderByDescending(rnaSequence => rnaSequence.Values.Length)
-				.First();
-		}
-
-		private static IEnumerable<DnaString> GetDnaStrings(this string randomDnaString)
+		public static IEnumerable<DnaString> GetDnaStrings(this string randomDnaString)
 		{
 			return new[]
 			{
@@ -48,6 +39,14 @@ namespace Bioinformatics.Task1
 		{
 			var firstChar = stringValue[0];
 			return stringValue.Substring(1, stringValue.Length - 1) + firstChar;
+		}
+
+		public static double GetActualGcPercent(this string stringValue)
+		{
+			var gcCharsCount = stringValue
+				.Count(character => character == 'G' || character == 'C');
+
+			return (double) gcCharsCount / stringValue.Length * 100;
 		}
 	}
 }

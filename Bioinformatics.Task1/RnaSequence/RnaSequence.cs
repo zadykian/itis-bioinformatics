@@ -1,6 +1,6 @@
 namespace Bioinformatics.Task1
 {
-	internal readonly struct RnaSequence
+	public readonly struct RnaSequence
 	{
 		public RnaSequence(string[] values, 
 			bool reversed, 

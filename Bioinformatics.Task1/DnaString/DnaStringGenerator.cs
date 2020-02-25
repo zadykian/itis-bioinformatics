@@ -3,7 +3,7 @@ using System.Text;
 
 namespace Bioinformatics.Task1
 {
-	internal static class DnaStringGenerator
+	public static class DnaStringGenerator
 	{
 		private static readonly Random random = new Random();
 		
@@ -33,7 +33,7 @@ namespace Bioinformatics.Task1
 		{
 			var randomValue = random.Next(0, 99);
 
-			if (withGc)
+			if (!withGc)
 			{
 				if (randomValue < 50)
 				{

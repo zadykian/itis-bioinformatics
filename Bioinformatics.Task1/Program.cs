@@ -11,6 +11,7 @@ namespace Bioinformatics.Task1
 			var randomDnaString = DnaStringGenerator.GetRandomDnaString(stringLength, percents);
 			
 			Console.WriteLine($"Исходная строка: {randomDnaString}");
+			Console.WriteLine($"Фактический GC-состав: {randomDnaString.GetActualGcPercent()}%");
 
 			var maxRnaSequence = randomDnaString.GetMaxRnaSequence();
 			
