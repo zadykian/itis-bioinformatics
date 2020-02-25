@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Linq;
 using System.Reactive.Linq;
 using Bioinformatics.Task1;
@@ -9,6 +10,8 @@ namespace Bioinformatics.Task2
 	{
 		private static void Main()
 		{
+			SetCulture();
+
 			Enumerable
 				.Range(20, 61)
 				.Select(gcPercent => GetGcPercentProbability((byte) gcPercent))
@@ -16,11 +19,22 @@ namespace Bioinformatics.Task2
 
 			Console.ReadKey();
 		}
+		
+		private static void SetCulture()
+		{
+			var culture = new CultureInfo("ru-RU")
+			{
+				NumberFormat = { NumberDecimalSeparator = "," },
+			};
+
+			CultureInfo.DefaultThreadCurrentCulture = culture;
+			CultureInfo.DefaultThreadCurrentUICulture = culture;
+		}
 
 		private static GcPercentProbability GetGcPercentProbability(byte gcPercent)
 		{
 			var iterationsCount = 10000;
-			var minRnaSequenceLength = 50;
+			var minRnaSequenceLength = 30;
 			
 			var result = Enumerable
 				.Range(0, iterationsCount)
