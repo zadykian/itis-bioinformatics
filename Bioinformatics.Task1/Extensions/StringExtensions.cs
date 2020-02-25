@@ -22,18 +22,18 @@ namespace Bioinformatics.Task1
 				.First();
 		}
 
-		private static DnaString[] GetDnaStrings(this string randomDnaString)
+		private static IEnumerable<DnaString> GetDnaStrings(this string randomDnaString)
 		{
 			return new[]
 			{
 				new DnaString(randomDnaString, false),
 				new DnaString(randomDnaString.Reverse(), true),
 
-				new DnaString(randomDnaString.FirstCharToEnd(), false),
-				new DnaString(randomDnaString.FirstCharToEnd().Reverse(), true),
+				new DnaString(randomDnaString.FirstCharToEnd(), false, 1),
+				new DnaString(randomDnaString.FirstCharToEnd().Reverse(), true, 1),
 
-				new DnaString(randomDnaString.FirstCharToEnd().FirstCharToEnd(), false),
-				new DnaString(randomDnaString.FirstCharToEnd().FirstCharToEnd().Reverse(), true)
+				new DnaString(randomDnaString.FirstCharToEnd().FirstCharToEnd(), false, 2),
+				new DnaString(randomDnaString.FirstCharToEnd().FirstCharToEnd().Reverse(), true, 2)
 			};
 		}
 		

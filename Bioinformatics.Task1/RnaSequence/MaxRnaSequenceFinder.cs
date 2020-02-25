@@ -16,100 +16,63 @@ namespace Bioinformatics.Task1
 				.ToArray();
 
 			var currentBuffer = new List<string>();
-			ushort currentStartIndex = 0;
-			ushort currentEndIndex = 2;
+			ushort currentStartIndex = 1;
+			ushort currentEndIndex = 3;
 			
 			var rnaSequenceIsFound = false;
+
+			void Reset()
+			{
+				currentBuffer.Clear();
+				currentStartIndex = (ushort) (currentEndIndex + 1);
+				currentEndIndex += 3;
+				rnaSequenceIsFound = false;
+			}
 
 			foreach (var currentToken in tokens)
 			{
 				if (!rnaSequenceIsFound)
 				{
-					currentStartIndex += 3;
-					currentEndIndex += 3;
-					
 					if (currentToken == "ATG")
 					{
 						rnaSequenceIsFound = true;
-						startIndex = currentStartIndex;
 						currentBuffer.Add(currentToken);
+						currentEndIndex += 3;
 					}
-
+					else
+					{
+						currentStartIndex += 3;
+						currentEndIndex += 3;
+					}
+					
 					continue;
 				}
 
 				if (currentToken == "TGG")
 				{
-					currentBuffer.Clear();
-					rnaSequenceIsFound = false;
+					Reset();
+					continue;
 				}
 				
-				if (currentToken == "TAA" || currentToken == "TAG" || currentToken == "TGA")
+				currentBuffer.Add(currentToken);
+
+				if (currentToken != "TAA" && currentToken != "TAG" && currentToken != "TGA")
 				{
 					currentEndIndex += 3;
-					currentBuffer.Add(currentToken);
-					
-					if (maxBuffer.Count < currentBuffer.Count)
-					{
-						endIndex = currentEndIndex;
-						startIndex = currentStartIndex;
-						maxBuffer = new List<string>(currentBuffer);
-					}
-			
-					currentBuffer.Clear();
-					break;
+					continue;
 				}
 				
-				currentEndIndex += 3;
-				currentBuffer.Add(currentToken);
+				if (maxBuffer.Count < currentBuffer.Count)
+				{
+					endIndex = currentEndIndex;
+					startIndex = currentStartIndex;
+					maxBuffer = new List<string>(currentBuffer);
+				}
+			
+				Reset();
 			}
-			
-			
-			
-			
-			// for (ushort i = 0; i < tokens.Length; i++)
-			// {
-			// 	var currentToken = tokens[i];
-			//
-			// 	if (!rnaSequenceIsFound)
-			// 	{
-			// 		if (currentToken == "ATG")
-			// 		{
-			// 			rnaSequenceIsFound = true;
-			// 			currentStartIndex = indexToShow;
-			// 			buffer.Add(currentToken);
-			// 		}
-			// 		indexToShow += 3;
-			// 		continue;
-			// 	}
-			//
-			// 	if (currentToken == "TGG")
-			// 	{
-			// 		buffer.Clear();
-			// 		break;
-			// 	}
-			//
-			// 	if (currentToken == "TAA" || currentToken == "TAG" || currentToken == "TGA")
-			// 	{
-			// 		buffer.Add(currentToken);
-			// 		
-			// 		if (maxBuffer.Count < buffer.Count)
-			// 		{
-			// 			indexToShow += 3;
-			// 			endIndex = indexToShow;
-			// 			startIndex = currentStartIndex;
-			// 			maxBuffer = new List<string>(buffer);
-			// 		}
-			//
-			// 		buffer.Clear();
-			// 		break;
-			// 	}
-			// 	
-			// 	indexToShow += 3;
-			// 	buffer.Add(currentToken);
-			// }
 
-			var dnaStringRange = new DnaStringRange(startIndex, endIndex);
+			var dnaStringRange = new DnaStringRange(startIndex, endIndex) + dnaString.Bias;
 			return new RnaSequence(maxBuffer.ToArray(), dnaString.Reversed, dnaStringRange);
 		}
 	}

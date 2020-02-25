@@ -13,5 +13,19 @@ namespace Bioinformatics.Task1
 		public ushort LastCharIndex { get; }
 
 		public override string ToString() => $"[{FirstCharIndex}, {LastCharIndex}]";
+
+		public static DnaStringRange operator +(DnaStringRange dnaStringRange, byte bias)
+		{
+			var firstCharIndex = (ushort) (dnaStringRange.FirstCharIndex + bias);
+			var lastCharIndex = (ushort) (dnaStringRange.LastCharIndex + bias);
+			return new DnaStringRange(firstCharIndex, lastCharIndex);
+		}
+		
+		public static DnaStringRange operator -(DnaStringRange dnaStringRange, byte bias)
+		{
+			var firstCharIndex = (ushort) (dnaStringRange.FirstCharIndex - bias);
+			var lastCharIndex = (ushort) (dnaStringRange.LastCharIndex - bias);
+			return new DnaStringRange(firstCharIndex, lastCharIndex);
+		}
 	}
 }
