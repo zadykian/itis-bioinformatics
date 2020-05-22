@@ -40,6 +40,9 @@ namespace Bioinformatics.Task3
 		/// </summary>
 		public static ConsoleScope Input => new ConsoleScope(ConsoleColor.DarkCyan, ConsoleColor.Black);
 		
+		/// <summary>
+		/// Создать контекст вывода заголовка результата.
+		/// </summary>
 		public static ConsoleScope ResultHeader => new ConsoleScope(ConsoleColor.DarkGray, ConsoleColor.Gray);
 	}
 }
