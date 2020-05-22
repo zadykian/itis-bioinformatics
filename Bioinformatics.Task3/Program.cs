@@ -1,5 +1,4 @@
-﻿using System;
-using Bioinformatics.Task3.Extensions;
+﻿using Bioinformatics.Task3.Extensions;
 
 namespace Bioinformatics.Task3
 {
