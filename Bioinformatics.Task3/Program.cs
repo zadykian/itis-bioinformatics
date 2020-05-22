@@ -12,7 +12,7 @@ namespace Bioinformatics.Task3
 			var alignmentInputData = InputReader.GetAlignmentInputData(strategyType.IsAffine());
 
 			var alignmentResults = alignmentStrategy.GetOptimalAlignments(alignmentInputData);
-			Console.WriteLine(alignmentResults);
+			OutputWriter.DisplayAlignmentResults(alignmentResults);
 		}
 	}
 }

@@ -39,5 +39,7 @@ namespace Bioinformatics.Task3
 		/// Создать контекст ввода данных пользователем.
 		/// </summary>
 		public static ConsoleScope Input => new ConsoleScope(ConsoleColor.DarkCyan, ConsoleColor.Black);
+		
+		public static ConsoleScope ResultHeader => new ConsoleScope(ConsoleColor.DarkGray, ConsoleColor.Gray);
 	}
 }
