@@ -3,7 +3,7 @@ namespace Bioinformatics.Task3
 	/// <summary>
 	/// Стратегия поиска глобального выравнивания с аффинным штрафом.
 	/// </summary>
-	internal class GlobalAffineAlignmentStrategy : AlignmentStrategyBase, IAlignmentStrategy
+	internal class GlobalAffineAlignmentStrategy : IAlignmentStrategy
 	{
 		/// <inheritdoc/>
 		public AlignmentResult[] GetOptimalAlignments(in AlignmentInputData alignmentInputData)

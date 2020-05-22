@@ -1,0 +1,7 @@
+CustomAlignment
+DNA
+A   T   G   C
+$bonus  $penalty  $penalty  $penalty
+$penalty  $bonus  $penalty  $penalty
+$penalty  $penalty  $bonus  $penalty
+$penalty  $penalty  $penalty  $bonus

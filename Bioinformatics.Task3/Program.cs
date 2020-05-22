@@ -8,9 +8,9 @@ namespace Bioinformatics.Task3
 		{
 			var strategyType = InputReader.GetAlignmentStrategyType();
 			var alignmentInputData = InputReader.GetAlignmentInputData(strategyType.IsAffine());
-			var alignmentStrategy = AlignmentStrategyFactory.Create(strategyType, alignmentInputData);
+			var alignmentStrategy = AlignmentStrategyFactory.Create(in strategyType);
 
-			var alignmentResults = alignmentStrategy.GetOptimalAlignments(alignmentInputData);
+			var alignmentResults = alignmentStrategy.GetOptimalAlignments(in alignmentInputData);
 			OutputWriter.DisplayAlignmentResults(alignmentResults);
 		}
 	}
