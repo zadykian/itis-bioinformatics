@@ -3,8 +3,12 @@ namespace Bioinformatics.Task3
 	/// <summary>
 	/// Стратегия поиска локального выравнивания.
 	/// </summary>
-	internal class LocalAlignmentStrategy : IAlignmentStrategy
+	internal class LocalAlignmentStrategy : AlignmentStrategyBase, IAlignmentStrategy
 	{
+		public LocalAlignmentStrategy(AlignmentInputData inputData) : base(inputData)
+		{
+		}
+
 		/// <inheritdoc/>
 		public AlignmentResult[] GetOptimalAlignments(in AlignmentInputData alignmentInputData)
 		{
