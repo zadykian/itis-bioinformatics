@@ -7,7 +7,7 @@ namespace Bioinformatics.Task3
 		private static void Main()
 		{
 			var strategyType = InputReader.GetAlignmentStrategyType();
-			var alignmentStrategy = (IAlignmentStrategy) Activator.CreateInstance(strategyType);
+			var alignmentStrategy = Activator.CreateInstance(strategyType);
 
 		}
 	}
