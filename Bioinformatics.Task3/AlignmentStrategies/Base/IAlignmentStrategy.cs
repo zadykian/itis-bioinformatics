@@ -8,6 +8,6 @@ namespace Bioinformatics.Task3
 		/// <summary>
 		/// Найти все оптимальные выравнивания последовательностей ДНК.
 		/// </summary>
-		AlignmentResult[] GetOptimalAlignments(AlignmentInputData<TransitionWeights> inputData);
+		AlignmentResult[] GetOptimalAlignments(in AlignmentInputData alignmentInputData);
 	}
 }

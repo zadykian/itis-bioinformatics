@@ -16,25 +16,12 @@ namespace Bioinformatics.Task3
 			{
 				StrategyType.GlobalAlignment => typeof(GlobalAlignmentStrategy),
 				StrategyType.LocalAlignment => typeof(LocalAlignmentStrategy),
-				_ => throw new ArgumentOutOfRangeException(nameof(StrategyType))
-			};
-
-			return (IAlignmentStrategy) Activator.CreateInstance(objectType);
-		}
-
-		/// <summary>
-		/// Создать экземпляр стратегии исходя из типа <paramref name="strategyType"/>. 
-		/// </summary>
-		public static IAffineAlignmentStrategy CreateAffine(StrategyType strategyType)
-		{
-			var objectType = strategyType switch
-			{
 				StrategyType.GlobalAffineAlignment => typeof(GlobalAffineAlignmentStrategy),
 				StrategyType.LocalAffineAlignment => typeof(LocalAffineAlignmentStrategy),
 				_ => throw new ArgumentOutOfRangeException(nameof(StrategyType))
 			};
 
-			return (IAffineAlignmentStrategy) Activator.CreateInstance(objectType);
+			return (IAlignmentStrategy) Activator.CreateInstance(objectType);
 		}
 	}
 }

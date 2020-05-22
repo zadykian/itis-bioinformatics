@@ -10,7 +10,7 @@ namespace Bioinformatics.Task3
 	internal static class InputReader
 	{
 		/// <summary>
-		/// Получить тип, реализующий интерфейс <see cref="IAlignmentStrategy{T}"/> в зависимости от выбора пользователя.
+		/// Получить тип, реализующий интерфейс <see cref="IAlignmentStrategy"/> в зависимости от выбора пользователя.
 		/// </summary>
 		public static StrategyType GetAlignmentStrategyType()
 		{
@@ -24,6 +24,37 @@ namespace Bioinformatics.Task3
 			Console.WriteLine(strategyTypesString);
 			return ReadValueFromConsole<StrategyType>(value => value.DoNotHaveMultipleFlags());
 		}
+
+		/// <summary>
+		/// Получить входные параметры выравнивания. 
+		/// </summary>
+		public static AlignmentInputData GetAlignmentInputData(bool withAffinePenalties)
+		{
+			Info("Введите первую строку ДНК:");
+			var firstDnaString = ReadValueFromConsole<string>(dnaString => dnaString.IsValidDnaString());
+
+			Info("Введите вторую строку ДНК:");
+			var secondDnaString = ReadValueFromConsole<string>(dnaString => dnaString.IsValidDnaString());
+
+			Info("Введите размер бонуса за совпадение (строго положительный):");
+			var matchBonus = ReadValueFromConsole<ushort>(value => value > 0);
+
+			Info("Введите размер штрафа за несовпадение (строго отрицательный):");
+			var mismatchPenalty = ReadValueFromConsole<short>(value => value < 0);
+
+			Info("Введите размер штрафа за вставку или делецию (строго отрицательный):");
+			var indelPenalty = ReadValueFromConsole<short>(value => value < 0);
+
+			short? gapOpeningPenalty = null;
+			if (withAffinePenalties)
+			{
+				Info("Введите размер штрафа за открытие гэпа (строго отрицательный):");
+				gapOpeningPenalty = ReadValueFromConsole<short>(value => value < 0);
+			}
+
+			var transitionWeights = new TransitionWeights(matchBonus, mismatchPenalty, indelPenalty, gapOpeningPenalty);
+			return new AlignmentInputData(firstDnaString, secondDnaString, transitionWeights);
+		}
 		
 		/// <summary>
 		/// Прочитать значение из терминала.
@@ -34,11 +65,12 @@ namespace Bioinformatics.Task3
 
 			while (true)
 			{
-				var inputValue = Console.ReadLine();
+				string inputValue;
+				using (ConsoleScope.Input) inputValue = Console.ReadLine();
 
 				if (string.IsNullOrWhiteSpace(inputValue))
 				{
-					using (ConsoleScope.Error) Console.WriteLine("Получена пустая строка. Попробуйте ещё раз.");
+					Error("Получена пустая строка. Попробуйте ещё раз.");
 					continue;
 				}
 
@@ -51,17 +83,28 @@ namespace Bioinformatics.Task3
 				}
 				catch
 				{
-					using (ConsoleScope.Error) Console.WriteLine("Получено некорректное значение. попробуйте ещё раз.");
+					Error("Получено некорректное значение. попробуйте ещё раз.");
 					continue;
 				}
 
 				if (validationFunc == null || validationFunc(convertedValue))
 				{
+					Console.WriteLine();
 					return convertedValue;
 				}
 
-				using (ConsoleScope.Error) Console.WriteLine("Получено некорректное значение. попробуйте ещё раз.");
+				Error("Получено некорректное значение. попробуйте ещё раз.");
 			}
+		}
+
+		private static void Info(string message)
+		{
+			using (ConsoleScope.Info) Console.WriteLine(message);
+		}
+
+		private static void Error(string message)
+		{
+			using (ConsoleScope.Error) Console.WriteLine(message);
 		}
 	}
 }

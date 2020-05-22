@@ -6,9 +6,11 @@ namespace Bioinformatics.Task3
 	internal class LocalAlignmentStrategy : IAlignmentStrategy
 	{
 		/// <inheritdoc/>
-		public AlignmentResult[] GetOptimalAlignments(AlignmentInputData<TransitionWeights> inputData)
+		public AlignmentResult[] GetOptimalAlignments(in AlignmentInputData alignmentInputData)
 		{
-			throw new System.NotImplementedException();
+			System.Console.WriteLine($"{GetType()} is not implemented!");
+			System.Console.ReadKey();
+			return null;
 		}
 	}
 }

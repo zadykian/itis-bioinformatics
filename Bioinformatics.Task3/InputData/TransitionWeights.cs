@@ -5,11 +5,15 @@ namespace Bioinformatics.Task3
 	/// </summary>
 	internal class TransitionWeights
 	{
-		public TransitionWeights(ushort matchBonus, short mismatchPenalty, short indelPenalty)
+		public TransitionWeights(ushort matchBonus,
+			short mismatchPenalty,
+			short indelPenalty,
+			short? gapOpeningPenalty = null)
 		{
 			MatchBonus = matchBonus;
 			MismatchPenalty = mismatchPenalty;
 			IndelPenalty = indelPenalty;
+			GapOpeningPenalty = gapOpeningPenalty;
 		}
 
 		/// <summary>
@@ -26,5 +30,10 @@ namespace Bioinformatics.Task3
 		/// Штраф за вставку или делецию (строго отрицательный).
 		/// </summary>
 		public short IndelPenalty { get; }
+
+		/// <summary>
+		/// Штраф за открытие гэпа (строго отрицательный).
+		/// </summary>
+		public short? GapOpeningPenalty { get; }
 	}
 }

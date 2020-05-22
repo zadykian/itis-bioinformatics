@@ -3,11 +3,10 @@ namespace Bioinformatics.Task3
 	/// <summary>
 	/// Входные данные для выравнивания.
 	/// </summary>
-	internal readonly struct AlignmentInputData<TWeights>
-		where TWeights : TransitionWeights
+	internal readonly struct AlignmentInputData
 	{
 		public AlignmentInputData(string firstDnaString, string secondDnaString, 
-			TWeights transitionWeights)
+			TransitionWeights transitionWeights)
 		{
 			FirstDnaString = firstDnaString;
 			SecondDnaString = secondDnaString;
@@ -27,6 +26,6 @@ namespace Bioinformatics.Task3
 		/// <summary>
 		/// Веса переходных операций выравнивания.
 		/// </summary>
-		public TWeights TransitionWeights { get; }
+		public TransitionWeights TransitionWeights { get; }
 	}
 }

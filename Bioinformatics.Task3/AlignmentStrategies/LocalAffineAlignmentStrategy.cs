@@ -3,12 +3,14 @@ namespace Bioinformatics.Task3
 	/// <summary>
 	/// Стратегия поиска локального выравнивания с аффинным штрафом.
 	/// </summary>
-	internal class LocalAffineAlignmentStrategy : IAffineAlignmentStrategy
+	internal class LocalAffineAlignmentStrategy : IAlignmentStrategy
 	{
 		/// <inheritdoc/>
-		public AlignmentResult[] GetOptimalAlignments(AlignmentInputData<AffineTransitionWeights> inputData)
+		public AlignmentResult[] GetOptimalAlignments(in AlignmentInputData alignmentInputData)
 		{
-			throw new System.NotImplementedException();
+			System.Console.WriteLine($"{GetType()} is not implemented!");
+			System.Console.ReadKey();
+			return null;
 		}
 	}
 }
