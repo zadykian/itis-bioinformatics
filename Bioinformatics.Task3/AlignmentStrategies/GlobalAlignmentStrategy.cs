@@ -1,9 +1,11 @@
 using System;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using Bio;
 using Bio.Algorithms.Alignment;
 using Bio.SimilarityMatrices;
+using Bio.Util;
 
 namespace Bioinformatics.Task3
 {
@@ -19,14 +21,15 @@ namespace Bioinformatics.Task3
 			var rightSequence = new Sequence(Alphabets.DNA, alignmentInputData.SecondDnaString);
 			var aligner = new NeedlemanWunschAligner();
 
-			var similarityMatrixString = GetSimilarityMatrixString(
-				alignmentInputData.TransitionWeights.MatchBonus,
-				alignmentInputData.TransitionWeights.MismatchPenalty);
+			var similarityMatrixString = GetSimilarityMatrixString(alignmentInputData.TransitionWeights);
 
 			using var textReader = new StringReader(similarityMatrixString);
 			aligner.SimilarityMatrix = new SimilarityMatrix(textReader);
-			
-			var result = aligner.AlignSimple(leftSequence, rightSequence);
+
+			var result = aligner
+				.AlignSimple(leftSequence, rightSequence)
+				.SelectMany(alignment => alignment.AlignedSequences)
+				.Max(alignment => (int) alignment.Metadata["Score"]);
 
 			return null;
 		}
@@ -34,7 +37,7 @@ namespace Bioinformatics.Task3
 		/// <summary>
 		/// Загрузить из ресурсов сборки матрицу замен нуклеотидов в строковом представлении.
 		/// </summary>
-		private static string GetSimilarityMatrixString(ushort matchBonus, short mismatchPenalty)
+		private static string GetSimilarityMatrixString(TransitionWeights transitionWeights)
 		{
 			using var resourceStream = Assembly
 				.GetExecutingAssembly()
@@ -49,8 +52,9 @@ namespace Bioinformatics.Task3
 
 			return streamReader
 				.ReadToEnd()
-				.Replace("$bonus", matchBonus.ToString())
-				.Replace("$penalty", mismatchPenalty.ToString());
+				.Replace("$match_bonus", transitionWeights.MatchBonus.ToString())
+				.Replace("$mismatch_penalty", transitionWeights.MismatchPenalty.ToString())
+				.Replace("$indel_penalty", transitionWeights.IndelPenalty.ToString());
 		}
 	}
 }

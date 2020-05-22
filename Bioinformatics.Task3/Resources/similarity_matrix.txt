@@ -1,7 +1,8 @@
 CustomAlignment
 DNA
-A   T   G   C
-$bonus  $penalty  $penalty  $penalty
-$penalty  $bonus  $penalty  $penalty
-$penalty  $penalty  $bonus  $penalty
-$penalty  $penalty  $penalty  $bonus
+A                  T                  G                  C                  *
+$match_bonus       $mismatch_penalty  $mismatch_penalty  $mismatch_penalty  $indel_penalty
+$mismatch_penalty  $match_bonus       $mismatch_penalty  $mismatch_penalty  $indel_penalty
+$mismatch_penalty  $mismatch_penalty  $match_bonus       $mismatch_penalty  $indel_penalty
+$mismatch_penalty  $mismatch_penalty  $mismatch_penalty  $match_bonus       $indel_penalty
+$indel_penalty     $indel_penalty     $indel_penalty     $indel_penalty     $indel_penalty
