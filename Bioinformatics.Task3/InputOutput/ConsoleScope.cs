@@ -2,12 +2,15 @@ using System;
 
 namespace Bioinformatics.Task3
 {
+	/// <summary>
+	/// Контекст отображения текста в терминале.
+	/// </summary>
 	internal class ConsoleScope : IDisposable
 	{
 		private readonly ConsoleColor actualBackgroundColor;
 		private readonly ConsoleColor actualFontColor;
 
-		public ConsoleScope(ConsoleColor scopeBackgroundColor, ConsoleColor scopeFontColor)
+		private ConsoleScope(ConsoleColor scopeBackgroundColor, ConsoleColor scopeFontColor)
 		{
 			actualBackgroundColor = Console.BackgroundColor;
 			actualFontColor = Console.ForegroundColor;
@@ -22,6 +25,9 @@ namespace Bioinformatics.Task3
 			Console.ForegroundColor = actualFontColor;
 		}
 
+		/// <summary>
+		/// Отобразить текст с информацией об ошибке. 
+		/// </summary>
 		public static ConsoleScope Error() => new ConsoleScope(ConsoleColor.DarkRed, ConsoleColor.Gray);
 	}
 }

@@ -1,4 +1,6 @@
 using System;
+using System.Linq;
+using Bioinformatics.Task3.Extensions;
 
 namespace Bioinformatics.Task3
 {
@@ -8,9 +10,34 @@ namespace Bioinformatics.Task3
 	internal static class InputReader
 	{
 		/// <summary>
+		/// Получить тип, реализующий интерфейс <see cref="IAlignmentStrategy"/> в зависимости от выбора пользователя.
+		/// </summary>
+		public static Type GetAlignmentStrategyType()
+		{
+			var strategyTypesString = Enum
+				.GetValues(typeof(StrategyType))
+				.Cast<StrategyType>()
+				.Select(type => $"{(byte) type} - {type.GetDescription()}")
+				.JoinBy(Environment.NewLine);
+
+			Console.WriteLine("Выберите тип алгоритма:");
+			Console.WriteLine(strategyTypesString);
+			var strategyType = InputReader.ReadValueFromConsole<StrategyType>(value => value.DoNotHaveMultipleFlags());
+
+			return strategyType switch
+			{
+				StrategyType.GlobalAlignment => typeof(GlobalAlignmentStrategy),
+				StrategyType.LocalAlignment => typeof(LocalAlignmentStrategy),
+				StrategyType.GlobalAffineAlignment => typeof(GlobalAffineAlignmentStrategy),
+				StrategyType.LocalAffineAlignment => typeof(LocalAffineAlignmentStrategy),
+				_ => throw new ArgumentOutOfRangeException(nameof(StrategyType))
+			};
+		}
+		
+		/// <summary>
 		/// Прочитать значение из терминала.
 		/// </summary>
-		public static T ReadValueFromConsole<T>(Func<T, bool> validationFunc)
+		private static T ReadValueFromConsole<T>(Func<T, bool> validationFunc)
 		{
 			var actualType = Nullable.GetUnderlyingType(typeof(T)) ?? typeof(T);
 
