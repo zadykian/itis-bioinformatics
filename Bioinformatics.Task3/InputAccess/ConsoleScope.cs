@@ -26,8 +26,13 @@ namespace Bioinformatics.Task3
 		}
 
 		/// <summary>
-		/// Отобразить текст с информацией об ошибке. 
+		/// Создать контекст вывода информационного сообщения.
 		/// </summary>
-		public static ConsoleScope Error() => new ConsoleScope(ConsoleColor.DarkRed, ConsoleColor.Gray);
+		public static ConsoleScope Info => new ConsoleScope(ConsoleColor.DarkGreen, ConsoleColor.Gray);
+
+		/// <summary>
+		/// Создать контекст вывода сообщения об ошибке.
+		/// </summary>
+		public static ConsoleScope Error => new ConsoleScope(ConsoleColor.DarkRed, ConsoleColor.Gray);
 	}
 }

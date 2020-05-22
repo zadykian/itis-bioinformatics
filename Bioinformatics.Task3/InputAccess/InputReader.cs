@@ -10,9 +10,9 @@ namespace Bioinformatics.Task3
 	internal static class InputReader
 	{
 		/// <summary>
-		/// Получить тип, реализующий интерфейс <see cref="IAlignmentStrategy"/> в зависимости от выбора пользователя.
+		/// Получить тип, реализующий интерфейс <see cref="IAlignmentStrategy{T}"/> в зависимости от выбора пользователя.
 		/// </summary>
-		public static Type GetAlignmentStrategyType()
+		public static StrategyType GetAlignmentStrategyType()
 		{
 			var strategyTypesString = Enum
 				.GetValues(typeof(StrategyType))
@@ -20,18 +20,9 @@ namespace Bioinformatics.Task3
 				.Select(type => $"{(byte) type} - {type.GetDescription()}")
 				.JoinBy(Environment.NewLine);
 
-			Console.WriteLine("Выберите тип алгоритма:");
+			using (ConsoleScope.Info) Console.WriteLine("Выберите тип алгоритма:");
 			Console.WriteLine(strategyTypesString);
-			var strategyType = InputReader.ReadValueFromConsole<StrategyType>(value => value.DoNotHaveMultipleFlags());
-
-			return strategyType switch
-			{
-				StrategyType.GlobalAlignment => typeof(GlobalAlignmentStrategy),
-				StrategyType.LocalAlignment => typeof(LocalAlignmentStrategy),
-				StrategyType.GlobalAffineAlignment => typeof(GlobalAffineAlignmentStrategy),
-				StrategyType.LocalAffineAlignment => typeof(LocalAffineAlignmentStrategy),
-				_ => throw new ArgumentOutOfRangeException(nameof(StrategyType))
-			};
+			return ReadValueFromConsole<StrategyType>(value => value.DoNotHaveMultipleFlags());
 		}
 		
 		/// <summary>
@@ -47,7 +38,7 @@ namespace Bioinformatics.Task3
 
 				if (string.IsNullOrWhiteSpace(inputValue))
 				{
-					using (ConsoleScope.Error()) Console.WriteLine("Получена пустая строка. Попробуйте ещё раз.");
+					using (ConsoleScope.Error) Console.WriteLine("Получена пустая строка. Попробуйте ещё раз.");
 					continue;
 				}
 
@@ -60,7 +51,7 @@ namespace Bioinformatics.Task3
 				}
 				catch
 				{
-					using (ConsoleScope.Error()) Console.WriteLine("Получено некорректное значение. попробуйте ещё раз.");
+					using (ConsoleScope.Error) Console.WriteLine("Получено некорректное значение. попробуйте ещё раз.");
 					continue;
 				}
 
@@ -69,7 +60,7 @@ namespace Bioinformatics.Task3
 					return convertedValue;
 				}
 
-				using (ConsoleScope.Error()) Console.WriteLine("Получено некорректное значение. попробуйте ещё раз.");
+				using (ConsoleScope.Error) Console.WriteLine("Получено некорректное значение. попробуйте ещё раз.");
 			}
 		}
 	}
