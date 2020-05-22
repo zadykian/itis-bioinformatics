@@ -5,10 +5,6 @@ namespace Bioinformatics.Task3
 	/// </summary>
 	internal class LocalAffineAlignmentStrategy : AlignmentStrategyBase, IAlignmentStrategy
 	{
-		public LocalAffineAlignmentStrategy(AlignmentInputData inputData) : base(inputData)
-		{
-		}
-		
 		/// <inheritdoc/>
 		public AlignmentResult[] GetOptimalAlignments(in AlignmentInputData alignmentInputData)
 		{

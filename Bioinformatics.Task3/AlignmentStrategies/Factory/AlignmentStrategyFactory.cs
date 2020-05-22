@@ -10,7 +10,7 @@ namespace Bioinformatics.Task3
 		/// <summary>
 		/// Создать экземпляр стратегии исходя из типа <paramref name="strategyType"/>. 
 		/// </summary>
-		public static IAlignmentStrategy Create(StrategyType strategyType, AlignmentInputData alignmentInputData)
+		public static IAlignmentStrategy Create(in StrategyType strategyType)
 		{
 			var objectType = strategyType switch
 			{
@@ -21,7 +21,7 @@ namespace Bioinformatics.Task3
 				_ => throw new ArgumentOutOfRangeException(nameof(StrategyType))
 			};
 
-			return (IAlignmentStrategy) Activator.CreateInstance(objectType, alignmentInputData);
+			return (IAlignmentStrategy) Activator.CreateInstance(objectType);
 		}
 	}
 }
