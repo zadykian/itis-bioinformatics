@@ -1,4 +1,5 @@
-﻿using Bioinformatics.Task3.Extensions;
+﻿using System;
+using Bioinformatics.Task3.Extensions;
 
 namespace Bioinformatics.Task3
 {
@@ -12,7 +13,7 @@ namespace Bioinformatics.Task3
 
 			var alignmentResults = alignmentStrategy.GetOptimalAlignments(in alignmentInputData);
 			OutputWriter.DisplayAlignmentResults(alignmentResults);
-			System.Console.ReadKey();
+			Console.ReadKey();
 		}
 	}
 }

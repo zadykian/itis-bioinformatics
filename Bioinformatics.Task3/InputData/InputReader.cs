@@ -22,7 +22,7 @@ namespace Bioinformatics.Task3
 
 			using (ConsoleScope.Info) Console.WriteLine("Выберите тип алгоритма:");
 			Console.WriteLine(strategyTypesString);
-			return ReadValueFromConsole<StrategyType>(value => value.DoNotHaveMultipleFlags());
+			return ReadValueFromConsole<StrategyType>(value => value.HasOnlySingleValue());
 		}
 
 		/// <summary>

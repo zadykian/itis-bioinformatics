@@ -38,15 +38,15 @@ namespace Bioinformatics.Task3.Extensions
 		}
 
 		/// <summary>
-		/// Определить, что элемент перечисления не содержит более одного значения в качестве битовых флогов. 
+		/// Определить, что элемент перечисления не содержит более одного значения в качестве битовых флагов. 
 		/// </summary>
-		public static bool DoNotHaveMultipleFlags<TEnum>(this TEnum enumItem)
+		public static bool HasOnlySingleValue<TEnum>(this TEnum enumItem)
 			where TEnum : Enum
 		{
 			var flagsCount = Enum
 				.GetValues(typeof(TEnum))
 				.Cast<TEnum>()
-				.Count(item => enumItem.HasFlag(item));
+				.Count(item => enumItem.Equals(item));
 
 			return flagsCount == 1;
 		}

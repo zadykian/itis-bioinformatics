@@ -19,10 +19,8 @@ namespace Bioinformatics.Task3
 			var aligner = GetAligner(in alignmentInputData);
 
 			var similarityMatrixString = GetSimilarityMatrixString(alignmentInputData.TransitionWeights);
-
 			using var textReader = new StringReader(similarityMatrixString);
 			aligner.SimilarityMatrix = new SimilarityMatrix(textReader);
-
 			aligner.GapExtensionCost = alignmentInputData.TransitionWeights.IndelPenalty;
 
 			return aligner
@@ -33,6 +31,9 @@ namespace Bioinformatics.Task3
 				.ToArray();
 		}
 
+		/// <summary>
+		/// Получить необходимую реализацию <see cref="IPairwiseSequenceAligner"/>.
+		/// </summary>
 		protected abstract IPairwiseSequenceAligner GetAligner(in AlignmentInputData alignmentInputData);
 
 		/// <summary>
