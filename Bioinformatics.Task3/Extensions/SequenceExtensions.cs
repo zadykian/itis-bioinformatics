@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using Bio;
 
@@ -13,7 +14,9 @@ namespace Bioinformatics.Task3.Extensions
 		/// </summary>
 		public static string ToFullString(this ISequence sequence)
 		{
-			return string.Concat(sequence.Cast<char>());
+			return sequence
+				.Select(Convert.ToChar)
+				.JoinBy(string.Empty);
 		}
 	}
 }

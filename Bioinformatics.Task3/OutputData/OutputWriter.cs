@@ -22,7 +22,7 @@ namespace Bioinformatics.Task3
 				Console.WriteLine(alignmentResult.StringRepresentation);
 
 				ResultHeader("Значение весовой функции");
-				Console.WriteLine(alignmentResult.TotalCost);
+				Console.WriteLine(alignmentResult.Score);
 
 				ResultHeader("Количество замен");
 				Console.WriteLine(alignmentResult.ReplacementCount);

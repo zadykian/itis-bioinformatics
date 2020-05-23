@@ -3,7 +3,7 @@ namespace Bioinformatics.Task3
 	/// <summary>
 	/// Веса переходных операций выравнивания.
 	/// </summary>
-	internal class TransitionWeights
+	internal readonly struct TransitionWeights
 	{
 		public TransitionWeights(ushort matchBonus,
 			short mismatchPenalty,

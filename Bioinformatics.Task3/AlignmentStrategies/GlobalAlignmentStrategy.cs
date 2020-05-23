@@ -5,7 +5,7 @@ using System.Reflection;
 using Bio;
 using Bio.Algorithms.Alignment;
 using Bio.SimilarityMatrices;
-using Bio.Util;
+using Bioinformatics.Task3.Extensions;
 
 namespace Bioinformatics.Task3
 {
@@ -26,12 +26,15 @@ namespace Bioinformatics.Task3
 			using var textReader = new StringReader(similarityMatrixString);
 			aligner.SimilarityMatrix = new SimilarityMatrix(textReader);
 
-			var result = aligner
-				.AlignSimple(leftSequence, rightSequence)
-				.SelectMany(alignment => alignment.AlignedSequences)
-				.Max(alignment => (int) alignment.Metadata["Score"]);
+			aligner.GapOpenCost = alignmentInputData.TransitionWeights.IndelPenalty;
+			aligner.GapExtensionCost = alignmentInputData.TransitionWeights.IndelPenalty;
 
-			return null;
+			return aligner
+				.AlignSimple(leftSequence, rightSequence)
+				.SelectMany(alignment => alignment.PairwiseAlignedSequences)
+				.MaxBy(sequence => sequence.GetScore())
+				.Select(alignedSequence => alignedSequence.ToAlignmentResult())
+				.ToArray();
 		}
 
 		/// <summary>
