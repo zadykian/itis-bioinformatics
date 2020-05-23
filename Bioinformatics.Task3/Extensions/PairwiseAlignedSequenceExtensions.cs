@@ -14,9 +14,16 @@ namespace Bioinformatics.Task3.Extensions
 		/// </summary>
 		public static AlignmentResult ToAlignmentResult(this PairwiseAlignedSequence alignedSequence)
 		{
-			var stringRepresentation = string.Join(Environment.NewLine,
+			var indices = alignedSequence.FirstSequence
+				.Zip(alignedSequence.SecondSequence)
+				.Where(tuple => tuple.First != tuple.Second)
+				.Select((_, index) => (uint) index)
+				.ToArray();
+
+			var alignedStrings = new AlignedStrings(
 				alignedSequence.FirstSequence.ToFullString(),
-				alignedSequence.SecondSequence.ToFullString());
+				alignedSequence.SecondSequence.ToFullString(),
+				indices);
 
 			var replacementCount = alignedSequence.FirstSequence
 				.Zip(alignedSequence.SecondSequence)
@@ -26,7 +33,7 @@ namespace Bioinformatics.Task3.Extensions
 				.Concat(alignedSequence.SecondSequence)
 				.Count(byteValue => byteValue == '-');
 
-			return new AlignmentResult(stringRepresentation, 
+			return new AlignmentResult(alignedStrings, 
 				alignedSequence.Score, 
 				(uint) replacementCount, 
 				(uint) indelCount);

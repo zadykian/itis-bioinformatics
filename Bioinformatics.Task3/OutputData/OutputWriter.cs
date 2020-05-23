@@ -19,7 +19,7 @@ namespace Bioinformatics.Task3
 			foreach (var alignmentResult in alignmentResults)
 			{
 				ResultHeader("Строковое представление");
-				Console.WriteLine(alignmentResult.StringRepresentation);
+				Console.WriteLine(alignmentResult.AlignedStrings);
 
 				ResultHeader("Значение весовой функции");
 				Console.WriteLine(alignmentResult.Score);

@@ -7,12 +7,12 @@ namespace Bioinformatics.Task3
 	/// </summary>
 	internal readonly struct AlignmentResult : IEquatable<AlignmentResult>
 	{
-		public AlignmentResult(string stringRepresentation, 
+		public AlignmentResult(AlignedStrings alignedStrings, 
 			long score, 
 			uint replacementCount, 
 			uint indelCount)
 		{
-			StringRepresentation = stringRepresentation;
+			AlignedStrings = alignedStrings;
 			Score = score;
 			ReplacementCount = replacementCount;
 			IndelCount = indelCount;
@@ -21,7 +21,7 @@ namespace Bioinformatics.Task3
 		/// <summary>
 		/// Строковое представление выравнивания в подстрочном виде.
 		/// </summary>
-		public string StringRepresentation { get; }
+		public AlignedStrings AlignedStrings { get; }
 
 		/// <summary>
 		/// Общая стоимость выравнивания (значение весовой функции).
@@ -41,7 +41,7 @@ namespace Bioinformatics.Task3
 		public bool Equals(AlignmentResult other)
 		{
 			return 
-				string.Equals(StringRepresentation, other.StringRepresentation, StringComparison.OrdinalIgnoreCase) 
+				AlignedStrings.Equals(other.AlignedStrings)
 				&& Score == other.Score 
 				&& ReplacementCount == other.ReplacementCount 
 				&& IndelCount == other.IndelCount;
@@ -55,7 +55,7 @@ namespace Bioinformatics.Task3
 		public override int GetHashCode()
 		{
 			var hashCode = new HashCode();
-			hashCode.Add(StringRepresentation, StringComparer.OrdinalIgnoreCase);
+			hashCode.Add(AlignedStrings);
 			hashCode.Add(Score);
 			hashCode.Add(ReplacementCount);
 			hashCode.Add(IndelCount);
