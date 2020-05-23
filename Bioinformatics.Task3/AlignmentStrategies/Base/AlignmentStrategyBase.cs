@@ -12,7 +12,7 @@ namespace Bioinformatics.Task3
 	internal abstract class AlignmentStrategyBase : IAlignmentStrategy
 	{
 		/// <inheritdoc/>
-		public AlignmentResult[] GetOptimalAlignments(in AlignmentInputData alignmentInputData)
+		public AlignmentResult[] GetOptimalAlignments(AlignmentInputData alignmentInputData)
 		{
 			var leftSequence = new Sequence(Alphabets.DNA, alignmentInputData.FirstDnaString);
 			var rightSequence = new Sequence(Alphabets.DNA, alignmentInputData.SecondDnaString);
@@ -26,8 +26,8 @@ namespace Bioinformatics.Task3
 			return aligner
 				.AlignSimple(leftSequence, rightSequence)
 				.SelectMany(alignment => alignment.PairwiseAlignedSequences)
-				.MaxBy(sequence => sequence.GetScore())
-				.Select(alignedSequence => alignedSequence.ToAlignmentResult())
+				.MaxBy(sequence => sequence.CalculateScore(alignmentInputData.TransitionWeights))
+				.Select(alignedSequence => alignedSequence.ToAlignmentResult(alignmentInputData.TransitionWeights))
 				.ToArray();
 		}
 
