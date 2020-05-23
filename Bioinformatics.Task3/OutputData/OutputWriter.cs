@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Bioinformatics.Task3
 {
@@ -19,7 +20,8 @@ namespace Bioinformatics.Task3
 			foreach (var alignmentResult in alignmentResults)
 			{
 				ResultHeader("Строковое представление");
-				Console.WriteLine(alignmentResult.AlignedStrings);
+				PrintResultString(alignmentResult.AlignedStrings.FirstString, alignmentResult.AlignedStrings.DiffIndices);
+				PrintResultString(alignmentResult.AlignedStrings.SecondString, alignmentResult.AlignedStrings.DiffIndices);
 
 				ResultHeader("Значение весовой функции");
 				Console.WriteLine(alignmentResult.Score);
@@ -34,6 +36,23 @@ namespace Bioinformatics.Task3
 				Console.WriteLine("# # # # # # # #");
 				Console.WriteLine();
 			}
+		}
+
+		private static void PrintResultString(string alignedString, uint[] diffIndices)
+		{
+			for (var index = 0; index < alignedString.Length; index++)
+			{
+				var consoleScope = diffIndices.Contains((uint) index)
+					? new ConsoleScope(ConsoleColor.DarkYellow, ConsoleColor.Black)
+					: ConsoleScope.Default;
+
+				using (consoleScope)
+				{
+					Console.Write(alignedString[index]);
+				}
+			}
+			
+			Console.WriteLine();
 		}
 
 		private static void ResultHeader(string message)

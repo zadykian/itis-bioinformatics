@@ -10,7 +10,7 @@ namespace Bioinformatics.Task3
 		private readonly ConsoleColor actualBackgroundColor;
 		private readonly ConsoleColor actualFontColor;
 
-		private ConsoleScope(ConsoleColor scopeBackgroundColor, ConsoleColor scopeFontColor)
+		public ConsoleScope(ConsoleColor scopeBackgroundColor, ConsoleColor scopeFontColor)
 		{
 			actualBackgroundColor = Console.BackgroundColor;
 			actualFontColor = Console.ForegroundColor;
@@ -39,10 +39,15 @@ namespace Bioinformatics.Task3
 		/// Создать контекст ввода данных пользователем.
 		/// </summary>
 		public static ConsoleScope Input => new ConsoleScope(ConsoleColor.DarkCyan, ConsoleColor.Black);
-		
+
 		/// <summary>
 		/// Создать контекст вывода заголовка результата.
 		/// </summary>
 		public static ConsoleScope ResultHeader => new ConsoleScope(ConsoleColor.DarkGray, ConsoleColor.Gray);
+
+		/// <summary>
+		/// Создать контекст вывода по умолчанию.
+		/// </summary>
+		public static ConsoleScope Default => new ConsoleScope(Console.BackgroundColor, Console.ForegroundColor);
 	}
 }

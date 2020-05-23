@@ -16,8 +16,9 @@ namespace Bioinformatics.Task3.Extensions
 		{
 			var indices = alignedSequence.FirstSequence
 				.Zip(alignedSequence.SecondSequence)
-				.Where(tuple => tuple.First != tuple.Second)
-				.Select((_, index) => (uint) index)
+				.Select((tuple, index) => (Bytes: tuple, Index: (uint) index))
+				.Where(tuple => tuple.Bytes.First != tuple.Bytes.Second)
+				.Select(tuple => tuple.Index)
 				.ToArray();
 
 			var alignedStrings = new AlignedStrings(
