@@ -1,16 +1,19 @@
+using Bio.Algorithms.Alignment;
+
 namespace Bioinformatics.Task3
 {
 	/// <summary>
 	/// Стратегия поиска локального выравнивания.
 	/// </summary>
-	internal class LocalAlignmentStrategy : IAlignmentStrategy
+	internal class LocalAlignmentStrategy : AlignmentStrategyBase
 	{
 		/// <inheritdoc/>
-		public AlignmentResult[] GetOptimalAlignments(in AlignmentInputData alignmentInputData)
+		protected override IPairwiseSequenceAligner GetAligner(in AlignmentInputData alignmentInputData)
 		{
-			System.Console.WriteLine($"{GetType()} is not implemented!");
-			System.Console.ReadKey();
-			return null;
+			return new SmithWatermanAligner
+			{
+				GapOpenCost = alignmentInputData.TransitionWeights.IndelPenalty
+			};
 		}
 	}
 }

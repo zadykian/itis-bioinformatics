@@ -1,16 +1,27 @@
+using System;
+using Bio.Algorithms.Alignment;
+
 namespace Bioinformatics.Task3
 {
 	/// <summary>
 	/// Стратегия поиска глобального выравнивания с аффинным штрафом.
 	/// </summary>
-	internal class GlobalAffineAlignmentStrategy : IAlignmentStrategy
+	internal class GlobalAffineAlignmentStrategy : AlignmentStrategyBase
 	{
 		/// <inheritdoc/>
-		public AlignmentResult[] GetOptimalAlignments(in AlignmentInputData alignmentInputData)
+		protected override IPairwiseSequenceAligner GetAligner(in AlignmentInputData alignmentInputData)
 		{
-			System.Console.WriteLine($"{GetType()} is not implemented!");
-			System.Console.ReadKey();
-			return null;
+			var gapOpenPenalty = alignmentInputData.TransitionWeights.GapOpeningPenalty;
+
+			if (!gapOpenPenalty.HasValue)
+			{
+				throw new ArgumentNullException(nameof(TransitionWeights.GapOpeningPenalty));
+			}
+
+			return new NeedlemanWunschAligner
+			{
+				GapOpenCost = gapOpenPenalty.Value
+			};
 		}
 	}
 }
