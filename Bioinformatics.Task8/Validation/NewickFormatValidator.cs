@@ -10,7 +10,7 @@ namespace Bioinformatics.Task8.Validation
 		/// </summary>
 		public static ValidationResult ValidateNewickString(string newickString)
 		{
-			return ValidationResult.Success();
+			return ValidationResult.Success;
 		}
 	}
 }
