@@ -10,7 +10,35 @@ namespace Bioinformatics.Task8.Validation
 		/// </summary>
 		public static ValidationResult ValidateNewickString(string newickString)
 		{
-			return ValidationResult.Success;
+			if (newickString[^1] != Constants.EndSymbol)
+			{
+				return ValidationResult.InvalidEndSymbol;
+			}
+
+			var bracketsCount = 0;
+
+			foreach (var character in newickString)
+			{
+				switch (character)
+				{
+					case '(':
+					{
+						bracketsCount++;
+						continue;
+					}
+
+					case ')':
+					{
+						bracketsCount--;
+						if (bracketsCount < 0) return ValidationResult.ImbalancedBrackets;
+						continue;
+					}
+				}
+			}
+
+			return bracketsCount == 0
+				? ValidationResult.Success
+				: ValidationResult.ImbalancedBrackets;
 		}
 	}
 }
