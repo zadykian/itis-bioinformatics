@@ -27,7 +27,11 @@ namespace Bioinformatics.Task8.Validation
 				return ValidationResult.InvalidEndSymbol;
 			}
 
-			var bracketsCount = 0;
+			if (newickString.Count(character => character == '(')
+			    != newickString.Count(character => character == ')'))
+			{
+				return ValidationResult.ImbalancedBrackets;
+			}
 
 			var foundNodeNames = new HashSet<string>();
 
@@ -40,15 +44,11 @@ namespace Bioinformatics.Task8.Validation
 				if (character == '(')
 				{
 					if (currentState == ValidatorState.NodeWeightHandling) return ValidationResult.InvalidNodeWeight;
-					bracketsCount++;
 					continue;
 				}
 
 				if (character == ')')
 				{
-					bracketsCount--;
-					if (bracketsCount < 0) return ValidationResult.ImbalancedBrackets;
-
 					if (currentState == ValidatorState.NodeNameHandling || currentState == ValidatorState.NodeWeightHandling)
 					{
 						if (currentState == ValidatorState.NodeNameHandling && currentNode.Length > 0)
@@ -71,7 +71,7 @@ namespace Bioinformatics.Task8.Validation
 				{
 					case ValidatorState.NodeNameHandling:
 					{
-						if (Constants.InvalidNodeChars.Contains(character) || char.IsDigit(character))
+						if (Constants.InvalidNodeChars.Contains(character))
 						{
 							return ValidationResult.InvalidNodeName;
 						}
@@ -98,7 +98,8 @@ namespace Bioinformatics.Task8.Validation
 							}
 						}
 						
-						if (!char.IsDigit(character) && !Constants.InvalidNodeChars.Contains(character))
+						if (!Constants.InvalidNodeChars.Contains(character)
+						    && character != Constants.NodeSeparator)
 						{
 							currentNode.Append(character);
 						}
@@ -161,9 +162,7 @@ namespace Bioinformatics.Task8.Validation
 				}
 			}
 
-			return bracketsCount == 0
-				? ValidationResult.Success
-				: ValidationResult.ImbalancedBrackets;
+			return  ValidationResult.Success;
 		}
 	}
 }
