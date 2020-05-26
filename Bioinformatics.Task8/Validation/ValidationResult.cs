@@ -42,6 +42,11 @@ namespace Bioinformatics.Task8.Validation
 		public static ValidationResult InvalidNodeName => Failure("Некорректное наименование узла.");
 
 		/// <summary>
+		/// Ошибка валидации: некорректный вес узла.
+		/// </summary>
+		public static ValidationResult InvalidNodeWeight => Failure("Некорректный вес узла.");
+		
+		/// <summary>
 		/// Ошибка валидации: дублировано наименование узла.
 		/// </summary>
 		public static ValidationResult NodeNameDuplicate => Failure("Дублировано наименование узла.");
